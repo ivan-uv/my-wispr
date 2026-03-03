@@ -10,6 +10,8 @@ dependencies = [
     "numpy>=2.0.2",
     "pynput>=1.8.1",
     "pyperclip>=1.11.0",
+    # AppKit/NSPasteboard bindings are provided via Cocoa
+    "pyobjc-framework-Cocoa>=11.0; sys_platform == 'darwin'",
     "scipy>=1.13.1",
     "sounddevice>=0.5.5",
 ]

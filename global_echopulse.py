@@ -6,7 +6,42 @@ from pynput import keyboard
 import pyperclip
 import os
 import subprocess
+import threading
 import time
+
+# macOS pasteboard save/restore (preserves clipboard across transcript paste)
+def _pasteboard_snapshot():
+    """Capture current clipboard contents (all types). Returns None on non-macOS or failure."""
+    try:
+        from AppKit import NSPasteboard
+        pb = NSPasteboard.generalPasteboard()
+        types = pb.types()
+        if not types:
+            return None
+        snapshot = {}
+        for t in types:
+            data = pb.dataForType_(t)
+            if data is not None:
+                snapshot[t] = data
+        return snapshot if snapshot else None
+    except Exception:
+        return None
+
+
+def _pasteboard_restore(snapshot):
+    """Restore clipboard from a snapshot. No-op if snapshot is None or empty."""
+    if not snapshot:
+        return
+    try:
+        from AppKit import NSPasteboard
+        pb = NSPasteboard.generalPasteboard()
+        pb.clearContents()
+        types = list(snapshot.keys())
+        pb.declareTypes_owner_(types, None)
+        for t, data in snapshot.items():
+            pb.setData_forType_(data, t)
+    except Exception:
+        pass
 
 # --- CONFIG ---
 TRIGGER_KEY = keyboard.Key.cmd_r
@@ -29,9 +64,12 @@ class EchoPulse:
         subprocess.Popen(["afplay", sound_path])
 
     def paste_text(self, text):
+        snapshot = _pasteboard_snapshot()
         pyperclip.copy(text)
         script = 'tell application "System Events" to keystroke "v" using command down'
         subprocess.run(['osascript', '-e', script])
+        # Restore previous clipboard after paste so next Cmd+V pastes what user had copied
+        threading.Timer(0.35, lambda: _pasteboard_restore(snapshot)).start()
 
     def audio_callback(self, indata, frames, time, status):
         if self.recording:
