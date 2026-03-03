@@ -1,5 +1,5 @@
-"""EchoPulse: local hold-to-record speech-to-text. Single entry point."""
-from global_echopulse import run
+"""Dictate: local hold-to-record speech-to-text. Single entry point."""
+from core import run
 
 
 def main():

@@ -52,7 +52,7 @@ MODEL = "mlx-community/whisper-large-v3-turbo"
 SOUND_START = "/System/Library/Sounds/Funk.aiff"
 SOUND_END = "/System/Library/Sounds/Pop.aiff"
 
-class EchoPulse:
+class Dictate:
     def __init__(self):
         self.recording = False
         self.audio_frames = []
@@ -122,9 +122,9 @@ class EchoPulse:
             self.stop_recording()
 
 def run():
-    """Run EchoPulse (blocking). Single entry point for the app."""
-    app = EchoPulse()
-    print("🚀 EchoPulse is LIVE. Hold [Right Command] to speak.")
+    """Run Dictate (blocking). Single entry point for the app."""
+    app = Dictate()
+    print("🚀 Dictate is LIVE. Hold [Right Command] to speak.")
     with keyboard.Listener(on_press=app.on_press, on_release=app.on_release) as listener:
         listener.join()
 

@@ -1,7 +1,7 @@
 [project]
-name = "my-wispr"
+name = "dictate"
 version = "0.1.0"
-description = "Local hold-to-record speech-to-text (EchoPulse) for Apple Silicon"
+description = "Local hold-to-record speech-to-text for Apple Silicon"
 readme = "README.md"
 requires-python = ">=3.9"
 dependencies = [
@@ -17,4 +17,4 @@ dependencies = [
 ]
 
 [project.scripts]
-echopulse = "main:main"
+dictate = "main:main"
