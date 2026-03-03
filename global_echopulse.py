@@ -83,9 +83,13 @@ class EchoPulse:
             self.is_held = False
             self.stop_recording()
 
-# --- RUN APP ---
-app = EchoPulse()
-print(f"🚀 EchoPulse is LIVE. Hold [Right Command] to speak.")
+def run():
+    """Run EchoPulse (blocking). Single entry point for the app."""
+    app = EchoPulse()
+    print("🚀 EchoPulse is LIVE. Hold [Right Command] to speak.")
+    with keyboard.Listener(on_press=app.on_press, on_release=app.on_release) as listener:
+        listener.join()
 
-with keyboard.Listener(on_press=app.on_press, on_release=app.on_release) as listener:
-    listener.join()
+
+if __name__ == "__main__":
+    run()

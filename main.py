@@ -1,5 +1,9 @@
+"""EchoPulse: local hold-to-record speech-to-text. Single entry point."""
+from global_echopulse import run
+
+
 def main():
-    print("Hello from my-wispr!")
+    run()
 
 
 if __name__ == "__main__":

@@ -16,9 +16,13 @@
 ---
 
 ## 🚀 Execution
-Run via `uv` to manage Rust-based dependencies and Apple Silicon C-extensions:
+Single entry point (run via `uv` for dependencies):
 
-`uv run main.py`
+```bash
+uv run main.py
+```
+
+Or after installing the project: `echopulse` (see `pyproject.toml` scripts).
 
 ---
 
@@ -60,3 +64,8 @@ Consider wrapping the Python script in **Rumps** (a Python library for macOS men
 - **Permissions:** If pasting fails, check **System Settings > Privacy & Security > Accessibility** for both Terminal and `/usr/bin/osascript`.
 - **Audio Device:** If an external mic is plugged in, `sounddevice` might need an explicit device ID mapping.
 - **Dependencies:** Managed via `uv`. Key libraries: `mlx-whisper`, `sounddevice`, `pynput`, `pyperclip`.
+- **Optional scripts:** `archive/record_and_transcribe.py` — interactive record-then-transcribe (Enter to start/stop). Not needed for the main hold-to-record flow.
+- **Clipboard preservation (idea):** Current approach overwrites the clipboard with the transcript, so a later Cmd+V can re-paste the transcript instead of what the user copied.
+  - **Simple fix (plain text only):** Save current clipboard (`pbpaste`), set transcript, trigger paste, then restore the saved clipboard after a short delay. Downside: restores only plain text (can lose rich formatting/images).
+  - **Robust fix (preserve rich clipboard):** Use macOS `NSPasteboard` (via `pyobjc`) to snapshot/restore all available pasteboard types (RTF/HTML/images/etc.) around the paste action.
+  - **Alternative:** Avoid clipboard entirely by “typing” the transcript via accessibility/keystroke injection (slower; may behave differently in some apps).

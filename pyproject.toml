@@ -1,7 +1,7 @@
 [project]
 name = "my-wispr"
 version = "0.1.0"
-description = "Add your description here"
+description = "Local hold-to-record speech-to-text (EchoPulse) for Apple Silicon"
 readme = "README.md"
 requires-python = ">=3.9"
 dependencies = [
@@ -13,3 +13,6 @@ dependencies = [
     "scipy>=1.13.1",
     "sounddevice>=0.5.5",
 ]
+
+[project.scripts]
+echopulse = "main:main"
