@@ -8,3 +8,10 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Training data (local only, not for commit)
+training_data/
+
+# Archive / testing (move old or scratch files here; not committed)
+archive/
+testing/

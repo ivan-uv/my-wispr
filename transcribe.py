@@ -17,5 +17,5 @@ def run_test(audio_file):
     print("\nTranscript:\n", result['text'])
 
 if __name__ == "__main__":
-    # Change 'test.wav' to any audio file you have handy
-    run_test("test.wav")
+    # Use a file in archive/ or pass any audio path
+    run_test("archive/test.wav")
