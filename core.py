@@ -137,7 +137,8 @@ class Dictate:
     def on_release(self, key):
         if key == TRIGGER_KEY:
             self.is_held = False
-            self.stop_recording()
+            if self.recording:
+                self.stop_recording()
 
 def run():
     """Run Dictate (blocking). Single entry point for the app."""
