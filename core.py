@@ -98,7 +98,7 @@ class Dictate:
         self.stream.start()
 
     def stop_recording(self):
-        print("✅ [RELEASED] Transcribing...")
+        print("🟢 [RELEASED] Transcribing...")
         self.recording = False
         if hasattr(self, 'stream'):
             self.stream.stop()
